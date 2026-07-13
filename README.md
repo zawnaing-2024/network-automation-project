@@ -14,6 +14,12 @@ Build a production-ready infrastructure automation platform.
 - Git Initialized
 
 
-## Next Step
+## Day 2
+- FAST API (GET,POST)
+- DEVICE ADD API ( POST)
+- Python Dictionary
+- Python Lists
+- Get Devices Lists
 
-Device Inventory API
+
+=
