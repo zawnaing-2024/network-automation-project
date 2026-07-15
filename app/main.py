@@ -1,11 +1,13 @@
 from fastapi import FastAPI
+from .models import Device
 
 app = FastAPI (
     title = "Network Automation Platform",
-    version = "0.2"
+    version = "0.3"
 )
 
-devices = []
+devices: list[Device]=[]
+
 @app.get("/")
 def home():
     return {
@@ -14,13 +16,13 @@ def home():
 
 
 @app.get("/devices")
-def get_devices():
+def get_devices() :
     return devices
 
 
 @app.post("/devices")
 
-def add_devices(device:dict):
+def add_device(device:Device):
     devices.append(device)
 
     return {

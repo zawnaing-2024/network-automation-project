@@ -22,4 +22,7 @@ Build a production-ready infrastructure automation platform.
 - Get Devices Lists
 
 
-=
+# Day 3
+- Pydantic (base model,IPvAnyAddress)
+- Validation test
+- error test
