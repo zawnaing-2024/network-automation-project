@@ -26,3 +26,16 @@ Build a production-ready infrastructure automation platform.
 - Pydantic (base model,IPvAnyAddress)
 - Validation test
 - error test
+
+# Day 4
+- PostgreSQL installation
+- Create PostgreSQL username and password 
+- Create Database
+- CRUD test
+
+# Day 5
+- FastAPI test with PostgreSQL Database
+- Create Device Table
+- Create User Table
+- Edit and Update Device Table 
+- Delete table
