@@ -3,6 +3,7 @@ from . import models,schemas
 from sqlalchemy.orm import Session
 from .database import engine,SessionLocal
 from fastapi import HTTPException
+from typing import List,Optional
 
 app = FastAPI (
     title = "Network Automation Platform",
@@ -38,11 +39,36 @@ def create_device(device: schemas.DeviceCreate , db : Session = Depends(get_db))
     db.refresh(new_device)
     return new_device
 
-@app.get("/devices")
-def read_devices(db: Session = Depends(get_db)):
-    devices = db.query(models.Device).all()
+@app.get("/devices",response_model=List[schemas.DeviceResponse])
+def read_devices(
+    vendor: Optional[str]=None,
+    location: Optional[str]=None,
+    ip:Optional[str]=None,
+    hostname:Optional[str]=None,
+    db: Session = Depends(get_db)):
+
+    query = db.query(models.Device)
+    if vendor :
+        query= query.filter(models.Device.vendor.ilike (f"%{vendor}%"))
+    
+    if location:
+        query= query.filter(models.Device.location.ilike (f"%{location}%"))
+
+    if ip : 
+        query = query.filter(models.Device.ip_address==ip)
+
+    if hostname:
+        query = query.filter(models.Device.hostname.ilike(f"%{hostname}%"))
+    
+    devices = query.all()
     return devices
 
+@app.get("/devices/{device_id}")
+def get_device(device_id:int, db: Session = Depends(get_db)):
+    db_device= db.query(models.Device).filter(models.Device.id==device_id).first()
+    if not db_device:
+        raise HTTPException(status_code=404 , detail ="Device not found")
+    return db_device
 
 @app.post("/users")
 
@@ -98,7 +124,9 @@ def delete_device(device_id:int , db: Session = Depends(get_db)):
     return {
         "message" : f"Device ID {device_id} have been deleted successfully."}
 
+
 @app.get("/users")
 def read_users(db : Session = Depends(get_db)):
     users = db.query(models.User).all()
     return users
+

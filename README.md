@@ -39,3 +39,7 @@ Build a production-ready infrastructure automation platform.
 - Create User Table
 - Edit and Update Device Table 
 - Delete table
+
+# Day 6
+- Search id
+- Query parameters
